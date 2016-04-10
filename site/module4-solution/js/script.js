@@ -14,12 +14,10 @@ $(function () { // Same as document.addEventListener("DOMContentLoaded"...
 var dc = {};
 
 var homeHtmlUrl = "snippets/home-snippet.html";
-var allCategoriesUrl = 
-  "http://davids-restaurant.herokuapp.com/categories.json";
+var allCategoriesUrl = "http://davids-restaurant.herokuapp.com/categories.json";
 var categoriesTitleHtml = "snippets/categories-title-snippet.html";
 var categoryHtml = "snippets/category-snippet.html";
-var menuItemsUrl = 
-  "http://davids-restaurant.herokuapp.com/menu_items.json?category=";
+var menuItemsUrl =  "http://davids-restaurant.herokuapp.com/menu_items.json?category=";
 var menuItemsTitleHtml = "snippets/menu-items-title.html";
 var menuItemHtml = "snippets/menu-item.html";
 
@@ -40,8 +38,7 @@ var showLoading = function (selector) {
 // with propValue in given 'string' 
 var insertProperty = function (string, propName, propValue) {
   var propToReplace = "{{" + propName + "}}";
-  string = string
-    .replace(new RegExp(propToReplace, "g"), propValue);
+  string = string.replace(new RegExp(propToReplace, "g"), propValue);
   return string;
 }
 
@@ -83,9 +80,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 showLoading("#main-content");
 $ajaxUtils.sendGetRequest(
   allCategoriesUrl, 
-  function (categories) {
-    buildAndShowHomeHTML(categories);
-  },
+  buildAndShowHomeHTML,
   true); // Explicitely setting the flag to get JSON from server processed into an object literal
 });
 // *** finish **
@@ -104,7 +99,6 @@ function buildAndShowHomeHTML (categories) {
       // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
       // variable's name implies it expects.
       var chosenCategoryShortName = chooseRandomCategory(categories).short_name;
-      
 
       // TODO: STEP 3: Substitute {{randomCategoryShortName}} in the home html snippet with the
       // chosen category from STEP 2. Use existing insertProperty function for that purpose.
@@ -117,7 +111,8 @@ function buildAndShowHomeHTML (categories) {
       // Hint: you need to surround the chosen category short name with something before inserting
       // it into the home html snippet.
       // 
-       var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, "randomCategoryShortName", chosenCategoryShortName);
+       var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, "randomCategoryShortName", 
+          "'" + chosenCategoryShortName + "'");
       
 
       // TODO: STEP 4: Insert the the produced HTML in STEP 3 into the main page
